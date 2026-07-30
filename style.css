@@ -1,9 +1,48 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: auto; }
-body { background-color: #ffffff; color: #000000; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-h1, h2, h3 { font-family: 'Syne', sans-serif; text-transform: uppercase; }
+/* ==========================================================================
+   TEMEL AYARLAR VE KATI SINIRLANDIRMALAR
+   ========================================================================== */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    word-wrap: break-word; /* Uzun kelimelerin ekranı yırtmasını engeller */
+}
 
-.noise-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); opacity: 0.04; }
+html { 
+    scroll-behavior: auto; 
+    overflow-x: hidden !important; /* Sağa sola kaymayı kesin olarak yasaklar */
+    max-width: 100%;
+}
+
+body { 
+    background-color: #ffffff; 
+    color: #000000; 
+    font-family: 'Inter', sans-serif; 
+    -webkit-font-smoothing: antialiased; 
+    overflow-x: hidden !important; 
+    max-width: 100%; 
+}
+
+h1, h2, h3 { 
+    font-family: 'Syne', sans-serif; 
+    text-transform: uppercase; 
+}
+
+img, video, iframe {
+    max-width: 100%; /* Medya dosyalarının kapsayıcı dışına taşmasını engeller */
+}
+
+.noise-overlay { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; /* 100vw yerine 100% kullandık ki taşma yapmasın */
+    height: 100vh; 
+    pointer-events: none; 
+    z-index: 9999; 
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); 
+    opacity: 0.04; 
+}
 
 @media (hover: hover) and (pointer: fine) {
     body, a, button, .bento-item, .btn-incele, .vlog-card, .about-image { cursor: none; }
@@ -13,38 +52,43 @@ h1, h2, h3 { font-family: 'Syne', sans-serif; text-transform: uppercase; }
     .custom-cursor.active .cursor-text { opacity: 1; }
 }
 
-/* NAVBAR GÜNCELLEMESİ (Logo fontu uzun isme uyarlandı) */
+/* ==========================================================================
+   NAVBAR & HERO
+   ========================================================================== */
 .navbar { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 25px 50px; background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(15px); border-bottom: 2px solid #000; z-index: 100; }
 .logo { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; letter-spacing: -1px; }
 .nav-links { display: flex; list-style: none; gap: 40px; }
 .nav-links a { text-decoration: none; color: #000; font-weight: 500; text-transform: uppercase; transition: opacity 0.3s; }
 .nav-links a:hover { opacity: 0.5; }
 
-/* HERO BÖLÜMÜ */
-.hero-section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; border-bottom: 2px solid #000; overflow: hidden; }
+.hero-section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; border-bottom: 2px solid #000; overflow: hidden; width: 100%; }
 .hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center; filter: blur(10px) grayscale(50%); opacity: 0.15; z-index: -1; }
-.hero-title { font-size: clamp(3rem, 8vw, 7rem); font-weight: 800; line-height: 0.9; letter-spacing: -3px; margin-bottom: 30px; position: relative; z-index: 2; }
+.hero-title { font-size: clamp(2.5rem, 8vw, 7rem); font-weight: 800; line-height: 0.9; letter-spacing: -3px; margin-bottom: 30px; position: relative; z-index: 2; width: 100%; }
 .hero-logo { max-width: 250px; height: auto; position: relative; z-index: 2; }
 
-/* YENİ: BLOG VE HAKKINDA BÖLÜMÜ */
-.about-section { padding: 100px 50px; border-bottom: 2px solid #000; }
+/* ==========================================================================
+   HAKKINDA (ABOUT)
+   ========================================================================== */
+.about-section { padding: 100px 50px; border-bottom: 2px solid #000; width: 100%; }
 .about-container { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
 .about-image { border: 2px solid #000; overflow: hidden; height: 600px; width: 100%; background: #111; position: relative; }
 .about-image img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: filter 0.5s ease, transform 0.8s ease; }
 .about-image:hover img { filter: grayscale(0%); transform: scale(1.05); }
-.about-text { display: flex; flex-direction: column; gap: 20px; }
-.about-text .section-title { margin-bottom: 0; font-size: 2.5rem; }
-.about-text h3 { font-size: 2rem; font-weight: 800; letter-spacing: -1px; }
+.about-text { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+.about-text .section-title { margin-bottom: 0; font-size: clamp(2rem, 5vw, 2.5rem); }
+.about-text h3 { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 800; letter-spacing: -1px; }
 .about-text .subtitle { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: #555; border-bottom: 1px solid #000; padding-bottom: 10px; width: fit-content; }
 .about-text p { font-size: 1.1rem; line-height: 1.6; font-weight: 300; }
 .about-text .btn-incele { color: #000; border-color: #000; margin-top: 20px; }
 .about-text .btn-incele:hover { background-color: #000; color: #fff; }
 
-/* HİZMETLER VE SLAYT YAPISI */
-.services-section { padding: 100px 50px; }
-.section-title { font-size: 3rem; margin-bottom: 50px; }
-.bento-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-.bento-item { border: 2px solid #000; height: 400px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 30px; background: #000; }
+/* ==========================================================================
+   HİZMETLER VE SLAYT
+   ========================================================================== */
+.services-section { padding: 100px 50px; width: 100%; }
+.section-title { font-size: clamp(2rem, 6vw, 3rem); margin-bottom: 50px; }
+.bento-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; width: 100%; }
+.bento-item { border: 2px solid #000; height: 400px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 30px; background: #000; width: 100%; }
 .slideshow { position: absolute; inset: 0; z-index: 1; }
 .slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s ease-in-out, transform 3s ease; transform: scale(1.1); }
 .slide.active { opacity: 0.8; transform: scale(1); }
@@ -54,57 +98,73 @@ h1, h2, h3 { font-family: 'Syne', sans-serif; text-transform: uppercase; }
 .btn-incele { display: inline-flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-size: 0.9rem; text-transform: uppercase; font-weight: 500; border: 1px solid rgba(255,255,255,0.5); padding: 10px 20px; width: fit-content; transition: all 0.3s ease; backdrop-filter: blur(5px); }
 .btn-incele:hover { background-color: #fff; color: #000; }
 
-/* VLOG / SESSIONS BÖLÜMÜ */
-.vlog-section { padding: 100px 50px; border-bottom: 2px solid #000; }
-.vlog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-.vlog-card { display: flex; flex-direction: column; gap: 20px; }
+/* ==========================================================================
+   VLOG (SESSIONS)
+   ========================================================================== */
+.vlog-section { padding: 100px 50px; border-bottom: 2px solid #000; width: 100%; }
+.vlog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; width: 100%; }
+.vlog-card { display: flex; flex-direction: column; gap: 20px; width: 100%; }
 .vlog-thumbnail { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; border: 2px solid #000; background: #111; }
 .preview-video { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) brightness(0.6); transition: all 0.5s ease; }
 .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60px; height: 60px; background: rgba(255,255,255,0.1); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.5); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 2rem; transition: all 0.3s ease; z-index: 2; }
 .vlog-card:hover .preview-video { filter: grayscale(0%) brightness(0.9); transform: scale(1.05); }
 .vlog-card:hover .play-icon { background: #fff; color: #000; transform: translate(-50%, -50%) scale(1.1); }
-.vlog-info h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 5px; }
+.vlog-info h3 { font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 700; margin-bottom: 5px; }
 .vlog-info p { font-size: 0.9rem; text-transform: uppercase; color: #555; }
 
-/* RANDEVU BÖLÜMÜ */
-.appointment-section { padding: 100px 50px; border-bottom: 2px solid #000; }
-.appointment-container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
-.parallax-container { position: relative; overflow: hidden; border: 2px solid #000; height: 500px; }
+/* ==========================================================================
+   RANDEVU VE HARİTA
+   ========================================================================== */
+.appointment-section { padding: 100px 50px; border-bottom: 2px solid #000; width: 100%; }
+.appointment-container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; width: 100%; }
+.parallax-container { position: relative; overflow: hidden; border: 2px solid #000; height: 500px; width: 100%; }
 .parallax-inner { width: 100%; height: 120%; object-fit: cover; filter: grayscale(100%); transition: filter 0.5s ease; }
 .parallax-container:hover .parallax-inner { filter: grayscale(0%); }
 .video-tag { position: absolute; top: 20px; left: 20px; background: #000; color: #fff; padding: 5px 15px; font-size: 0.8rem; z-index: 2; }
-.booking-wrapper { display: flex; flex-direction: column; gap: 30px; }
-.booking-text { font-size: 1.5rem; line-height: 1.4; font-weight: 300; }
-.btn-primary { display: inline-flex; align-items: center; gap: 10px; background-color: #000; color: #fff; padding: 20px 40px; text-decoration: none; font-family: 'Syne', sans-serif; font-weight: 700; text-transform: uppercase; border: 2px solid #000; transition: all 0.3s ease; }
+.booking-wrapper { display: flex; flex-direction: column; gap: 30px; width: 100%; }
+.booking-text { font-size: clamp(1.2rem, 3vw, 1.5rem); line-height: 1.4; font-weight: 300; }
+.btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background-color: #000; color: #fff; padding: 20px 40px; text-decoration: none; font-family: 'Syne', sans-serif; font-weight: 700; text-transform: uppercase; border: 2px solid #000; transition: all 0.3s ease; text-align: center; }
 .btn-primary:hover { background-color: #fff; color: #000; }
 .btn-small { padding: 12px 24px; font-size: 0.85rem; }
 
-/* İLETİŞİM & HARİTA */
-.contact-section { padding: 100px 50px 50px 50px; }
-.contact-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 50px; margin-bottom: 80px; }
-.map-wrapper { display: flex; flex-direction: column; gap: 20px; }
-.google-map { border: 2px solid #000 !important; filter: grayscale(100%); transition: filter 0.3s ease; }
+.contact-section { padding: 100px 50px 50px 50px; width: 100%; }
+.contact-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 50px; margin-bottom: 80px; width: 100%; }
+.map-wrapper { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+.google-map { border: 2px solid #000 !important; filter: grayscale(100%); transition: filter 0.3s ease; width: 100%; }
 .google-map:hover { filter: grayscale(0%); }
-.location-details { display: flex; justify-content: space-between; align-items: center; font-size: 1.2rem; }
-.social-wrapper { display: flex; justify-content: flex-end; align-items: flex-start; }
+.location-details { display: flex; justify-content: space-between; align-items: center; font-size: clamp(1rem, 2.5vw, 1.2rem); gap: 10px; }
+.social-wrapper { display: flex; justify-content: flex-end; align-items: flex-start; width: 100%; }
 .social-links { display: flex; flex-direction: column; gap: 15px; width: 100%; }
 .social-btn { display: flex; align-items: center; justify-content: center; gap: 8px; border: 2px solid #000; padding: 15px; text-decoration: none; color: #000; text-transform: uppercase; font-weight: 500; transition: all 0.3s ease; }
 .social-btn:hover { background-color: #000; color: #fff; }
-.footer-bottom { border-top: 2px solid #000; padding-top: 20px; text-align: center; }
+.footer-bottom { border-top: 2px solid #000; padding-top: 20px; text-align: center; width: 100%; }
 
-/* MOBİL UYUM */
+/* ==========================================================================
+   MOBİL VE TABLET UYUMU (KUSURSUZ SINIRLANDIRMA)
+   ========================================================================== */
 @media (max-width: 768px) {
     .navbar { padding: 15px; flex-direction: column; gap: 15px; width: 100%; }
-    /* İsim uzun olduğu için mobilde fontu biraz küçültüyoruz */
     .logo { font-size: 1.1rem; } 
     .nav-links { flex-wrap: wrap; justify-content: center; gap: 15px; width: 100%; }
-    .hero-title { font-size: 3rem; }
+    
+    /* Taşmaları önlemek için mobilde sağdan soldan boşlukları (padding) daraltıyoruz */
+    .hero-section, .about-section, .services-section, .vlog-section, .appointment-section, .contact-section { 
+        padding-left: 20px; 
+        padding-right: 20px; 
+        overflow-x: hidden;
+    }
+    
+    .bento-grid, .appointment-container, .contact-grid, .vlog-grid, .about-container { 
+        grid-template-columns: 1fr; 
+        gap: 30px;
+    }
+    
+    .hero-title { font-size: clamp(2rem, 10vw, 3rem); } /* Ekrana göre devasa boyuttan kaçınır */
     .hero-logo { max-width: 150px; }
-    .hero-section, .about-section, .services-section, .vlog-section, .appointment-section, .contact-section { padding-left: 20px; padding-right: 20px; }
-    .bento-grid, .appointment-container, .contact-grid, .vlog-grid, .about-container { grid-template-columns: 1fr; }
-    .about-image { height: 400px; }
-    .parallax-container { height: 350px; }
+    .about-image { height: 350px; }
+    .parallax-container { height: 300px; }
     .location-details { flex-direction: column; align-items: flex-start; gap: 15px; }
     .btn-incele { background: rgba(0,0,0,0.5); }
     .about-text .btn-incele { background: transparent; }
+    .btn-primary { padding: 15px 20px; width: 100%; } /* Butonlar mobilde tam genişlik alır */
 }
